@@ -98,7 +98,7 @@ return menssagem;
 
     }
 
-    public String metodoGet(String ip,String oidASerBuscado,String comunidade) {
+    public String metodoGetNext(String ip,String oidASerBuscado,String comunidade) {
         String menssagem  ="";
         try {
             Snmp snmp4j =  new Snmp(new DefaultUdpTransportMapping());
@@ -115,10 +115,10 @@ return menssagem;
             target.setVersion(SnmpConstants.version2c);
             
             PDU request = new PDU();
-            request.setType(PDU.GET);
+            request.setType(PDU.GETNEXT);
             OID oid= new OID(oidASerBuscado);
             //OID oid= new OID(".1.3.6.1.2.1.1.1.0");
-            //1.3.6.1.2.1.1.5
+            //1.3.6.1.2.1.1.5N
             request.add(new VariableBinding(oid));
 
             PDU responsePDU=null;
@@ -130,8 +130,9 @@ return menssagem;
                 responsePDU = responseEvent.getResponse();
                 if ( responsePDU != null)
                 {
-                                
+                               
                     Vector <VariableBinding> tmpv = (Vector <VariableBinding>) responsePDU.getVariableBindings();
+                 
                     if(tmpv != null)
                     {
                         for(int k=0; k <tmpv.size();k++)
@@ -150,10 +151,10 @@ return menssagem;
                             {
                                 String sOid = vb.getOid().toString();
                                 Variable var = vb.getVariable();
-                                OctetString oct = new OctetString((OctetString)var);
-                                String sVar =  oct.toString();
-
-                                //System.out.println("success:"+sVar);
+                              //  OctetString oct = new OctetString((OctetString)var);
+                              //  String sVar =  oct.toString();
+                                String sVar = var.toString();
+                                //System.out.println("success:"+var);
                                 menssagem = sVar;
                             }
 

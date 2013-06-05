@@ -38,6 +38,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jft_oidAserBuscado = new javax.swing.JTextField();
         jcb_comunidade = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
+        jb_getNext = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,6 +61,13 @@ public class TelaInicial extends javax.swing.JFrame {
 
         jLabel3.setText("COMUNIDADE");
 
+        jb_getNext.setText("GETNEXT");
+        jb_getNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_getNextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -69,7 +77,10 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jb_getNext))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -104,7 +115,9 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(jcb_comunidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(24, 24, 24)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jb_getNext))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(17, Short.MAX_VALUE))
@@ -115,9 +128,17 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        jtA1_resultado.setText("");
         String metodoGet = conexao.metodoGet(jtf_ip.getText(), jft_oidAserBuscado.getText(), jcb_comunidade.getSelectedItem().toString());
         jtA1_resultado.setText(metodoGet);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jb_getNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_getNextActionPerformed
+        // TODO add your handling code here:
+        jtA1_resultado.setText("");
+        String metodoGet = conexao.metodoGetNext(jtf_ip.getText(), jft_oidAserBuscado.getText(), jcb_comunidade.getSelectedItem().toString());
+        jtA1_resultado.setText(metodoGet);
+    }//GEN-LAST:event_jb_getNextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,6 +180,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jb_getNext;
     private javax.swing.JComboBox jcb_comunidade;
     private javax.swing.JTextField jft_oidAserBuscado;
     private javax.swing.JTextArea jtA1_resultado;
