@@ -259,20 +259,23 @@ public class Conexao {
             //1.3.6.1.2.1.1.5N
             
             ArrayList aux = new ArrayList();
-            
-            aux.addAll(listaDosQueNaoRepetem); 
-            aux.addAll(listaDosQueRepetem); 
+            if (!listaDosQueNaoRepetem.isEmpty())
+                aux.addAll(listaDosQueNaoRepetem);
+            if (!listaDosQueRepetem.isEmpty())
+                aux.addAll(listaDosQueRepetem); 
             VariableBinding[] v = new VariableBinding[aux.size()+1];
             for (int i =0 ;i< aux.size();i++){
             OID oid2 = new OID((String) aux.get(i));
-            v[i]=new VariableBinding(oid2);
+            //v[i]=new VariableBinding(oid2);
+            request.add(new VariableBinding(oid2));
             }
             
-    
-//            request.add(new VariableBinding(oid));
+            
+            
             
             PDU responsePDU = null;
             ResponseEvent responseEvent;
+            
             responseEvent = snmp4j.send(request, target);
 
             if (responseEvent != null) {
@@ -294,12 +297,15 @@ public class Conexao {
                                 menssagem = "Erro não pode ser encontrado o oid solicitado";
                             } else {
                                 String sOid = vb.getOid().toString();
+                                System.out.println(sOid);
                                 Variable var = vb.getVariable();
-                                //  OctetString oct = new OctetString((OctetString)var);
-                                //  String sVar =  oct.toString();
-                                String sVar = var.toString();
+                                System.out.println(var);
+                                  OctetString oct = new OctetString((OctetString)var);
+                                  String sVar =  oct.toString();
+                                String sVar2 = var.toString();
                                 //System.out.println("success:"+var);
-                                menssagem = sVar;
+                                menssagem += sVar+"\n";
+                                menssagem += sVar2+"\n";
                             }
 
 
